@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Recommendations</title>
+    <style>
+        body {
+            background-color: white; /* Set the background color to white */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #FFDBB8; /* Set navbar background color to black */
+            color: white;
+            padding: 10px;
+            text-align: left;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            
+        }
+
+        
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Align the list items to the left */
+            flex: 1; /* Allow it to take remaining space */
+        }
+
+        .nav-links li {
+            margin-right: 20px; /* Add spacing between items */
+        }
+
+        .nav-links li:first-child {
+            margin-right: auto; /* Push the Home link to the left */
+        }
+
+        .nav-links li a {
+            color: white; /* Set the link color to white */
+            text-decoration: none;
+        }
+
+        .product-heading {
+            text-align: center;
+            margin-top: 50px; /* Adjusted margin for the heading */
+            font-size: 32px; /* Increased font size */
+            color: #ff6f61; /* Set girly color */
+            font-family: Californian FB, Calibri, Arial, sans-serif; /* Change font family */
+            font-style: italic;
+        }
+
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 10px; /* Adjusted margin */
+            max-width: 1200px; /* Set a maximum width for the product container */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .product-box {
+            width: 30%; /* Adjusted box width */
+            margin: 10px;
+            border: 0px solid black; /* Outline in black color */
+            padding: 10px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .product-box img {
+            max-width: 100%;
+            height: auto;
+            max-height: 150px; /* Limit the image height */
+        }
+
+        .product-name {
+            font-size: 16px; /* Set smaller font size for product name */
+            font-family: Californian FB; /* Change font family */
+        }
+
+        @media (max-width: 768px) {
+            .product-box {
+                width: 100%; /* Full width for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1><a href="/"  style="color: black; text-decoration: none; font-family:Californian FB; font-weight: bolder;">Sephora</a></h1>
+        
+    </div>
+
+    <h2 class="product-heading">Discover Perfect Products Aligned with Your Concerns</h2>
+
+    <div class="product-container">
+        {% for product in recommended_products %}
+            <div class="product-box">
+                {% if product.image %}
+                    <img src="{{ product.image }}" alt="{{ product.product_name }} Image">
+                {% else %}
+                    <img src="static/images/general.jpg" alt="Default Image">
+                {% endif %}
+                <h3 class="product-name">{{ product.product_name }}</h3>
+                <p>Price: ${{ product.price }}</p>
+                <p>Rating: {{ product.average_rating }}</p>
+            </div>
+            {% if loop.index == 2 %}
+                </div><div class="product-container">
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
